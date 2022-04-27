@@ -6,8 +6,7 @@
     <meta name="description" content="MyCrypting - My Crypto Accounting" />
     <meta name="author" content="Matthew Gould" />
     <title>MyCrypting - Crypto Accounting</title>
-    <link v-if="isDarkTheme" rel="icon" type="image/x-icon" href="/img/icon-white.ico" />
-    <link v-else rel="icon" type="image/x-icon" href="/img/icon-black.ico" />
+    <link id="favicon" rel="icon" type="image/x-icon" href="img/favicon-white.ico" />
 
     <!-- <link href="../../css/styles.css" rel="stylesheet" type="text/css" /> -->
 
@@ -26,15 +25,15 @@
             <v-list>
                 <v-list-item v-if="isDarkTheme">
                     <v-list-item-icon v-if="drawerMinimised">
-                        <v-img src="/img/icon-white.png"></v-img>
+                        <v-img src="img/icon-white.png"></v-img>
                     </v-list-item-icon>
-                    <v-img v-else src="/img/logo-white.png"></v-img>
+                    <v-img v-else src="img/logo-white.png"></v-img>
                 </v-list-item>
                 <v-list-item v-else>
                     <v-list-item-icon v-if="drawerMinimised">
-                        <v-img src="/img/icon-black.png"></v-img>
+                        <v-img src="img/icon-black.png"></v-img>
                     </v-list-item-icon>
-                    <v-img v-else src="/img/logo-black.png"></v-img>
+                    <v-img v-else src="img/logo-black.png"></v-img>
                 </v-list-item>
             </v-list>
 
@@ -104,10 +103,10 @@
         <v-toolbar dense app id="top-nav">
 
             <v-toolbar-title v-if="isDarkTheme">
-                <img v-if="intialStage" src="/img/logo-white.png" height="32px" width="auto" style="object-fit: contain;"></img>
+                <img v-if="intialStage" src="img/logo-white.png" height="32px" width="auto" style="object-fit: contain;"></img>
             </v-toolbar-title>
             <v-toolbar-title v-else>
-                <img v-if="intialStage" src="/img/logo-black.png" height="32px" width="auto" style="object-fit: contain;"></img>
+                <img v-if="intialStage" src="img/logo-black.png" height="32px" width="auto" style="object-fit: contain;"></img>
             </v-toolbar-title>
 
             <v-spacer></v-spacer>
@@ -124,9 +123,11 @@
                     <v-list-item @click="switchTheme()">
                         <v-list-item-title>Switch Theme</v-list-item-title>
                     </v-list-item>
+                    <!--
                     <v-list-item>
                         <v-list-item-title>About App</v-list-item-title>
                     </v-list-item>
+                    -->
                     <v-list-item @click="aboutDev()">
                         <v-list-item-title>About Dev</v-list-item-title>
                     </v-list-item>
@@ -138,11 +139,10 @@
         <!-- Upload -->
         <v-container v-if="currentTab == 'import'" fill-height>
             <!-- <input type="file" @change="fileChanged" accept=".csv" ref="file" /> -->
-            <v-container fluid class="prominent">
+            <v-container fluid class="prominent my-1">
 
                 <!-- import select dropdown -->
-                <v-overflow-btn filled :items="importDropdown" v-model="selectedImport"
-                    placeholder="Select a file origin"></v-overflow-btn>
+                <v-overflow-btn filled :items="importDropdown" v-model="selectedImport" placeholder="Select a file origin"></v-overflow-btn>
 
                 <!-- file input -->
                 <v-file-input type="file" @change="fileChanged" accept=".csv" ref="file" v-model="fileInput" label="Select .CSV file" truncate-length="45" :disabled="selectedImport < 1">
@@ -151,10 +151,17 @@
                 <!-- start button -->
                 <v-btn block @click="fileConfirmed" :disabled="fileInput == null" class="neon-blue-bg">Confirm File Selection</v-btn>
 
-                <br><br><br><br><br>
+                <!-- spacing -->
+                <div style="height: 150px"></div>
 
                 <!-- reset button -->
                 <v-btn block @click="doMount" v-if="intialStage == false" color="warning">Reset Data</v-btn>
+
+                <!-- spacing -->
+                <br><br>
+
+                <!-- help with getting csv buttons -->
+                <v-btn v-if="selectedImport == 1" @click="coinbaseHelp" block text>How do I get a coinbase CSV?</v-btn>
 
             </v-container>
 
@@ -443,7 +450,7 @@
         },
 
         mounted() {
-            console.log('mounted V0.9');
+            console.log('mounted V1.0');
             this.doMount();
         },
 
@@ -580,7 +587,13 @@
                 }
             },
             switchTheme() {
-                this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+                this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+
+                if(this.$vuetify.theme.dark){ // if in dark theme mode
+                    document.getElementById('favicon').href = "img/favicon-white.ico"
+                } else { // if in light theme mode
+                    document.getElementById('favicon').href = "img/favicon-black.ico"
+                }
             },
             aboutDev() {
                 window.open('https://Matthew-E-Gould.github.io', '_blank');
@@ -617,7 +630,9 @@
                 this.intialStage = false;
                 this.setTab('gStats')
             },
-
+            coinbaseHelp(){
+                window.open("get-csv/coinbase.html", "_blank");
+            },
             // runs operations after the CSV is processed
             runOperations() {
                 this.formatHeadersForTable();
@@ -673,7 +688,7 @@
                 this.holdBreakdownOptions.labels = [];
                 this.holdBreakdownSeries = [];
                 Object.values(this.holdingTableItems).forEach(item => {
-                    console.log(item);
+                    // console.log(item);
                     if (item.cSale > 0) {
                         // item.crypto || item.cSale;
 
