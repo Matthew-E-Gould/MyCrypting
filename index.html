@@ -128,6 +128,11 @@
                         <v-list-item-title>About App</v-list-item-title>
                     </v-list-item>
                     -->
+                    <!--
+                    <v-list-item @click="agreement()">
+                        <v-list-item-title>Agreement</v-list-item-title>
+                    </v-list-item>
+                    -->
                     <v-list-item @click="aboutDev()">
                         <v-list-item-title>About Dev</v-list-item-title>
                     </v-list-item>
@@ -597,6 +602,9 @@
             },
             aboutDev() {
                 window.open('https://Matthew-E-Gould.github.io', '_blank');
+            },
+            agreement() {
+                window.open("docs/agreement.html", "_blank");
             },
 
             // CSV and processing
