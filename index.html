@@ -152,7 +152,7 @@
         </v-toolbar>
 
         <!-- Upload -->
-        <v-container v-if="currentTab == 'import'" fill-height>
+        <v-container v-if="currentTab == 'import'" fill-height class="pl-8">
             <!-- <input type="file" @change="fileChanged" accept=".csv" ref="file" /> -->
             <v-container fluid class="prominent my-1">
 
@@ -183,7 +183,7 @@
         </v-container>
 
         <!-- General Stats -->
-        <v-container v-if="currentTab == 'gStats'" fill-height>
+        <v-container v-if="currentTab == 'gStats'" fill-height class="pl-8">
 
             <!-- achievement chips -->
             <v-chip outlined v-if="diamondHands" title="Not sold" color="cyan" class="mx-1"> 💎🤲 </v-chip>
@@ -262,7 +262,7 @@
         </v-container>
 
         <!-- Holdings -->
-        <v-container v-if="currentTab == 'holdings'" fill-height>
+        <v-container v-if="currentTab == 'holdings'" fill-height class="pl-8">
 
             <v-col cols="12">
                 <v-alert dense border="left" type="warning">
@@ -301,7 +301,7 @@
         </v-container>
 
         <!-- Calendar -->
-        <v-container v-if="currentTab == 'calendar'" fill-height>
+        <v-container v-if="currentTab == 'calendar'" fill-height class="pl-8">
 
             <v-col cols="12">
                 <v-toolbar flat>
@@ -342,7 +342,7 @@
         </v-container>
 
         <!-- Transactions -->
-        <v-container v-if="currentTab == 'transactions'" fill-height>
+        <v-container v-if="currentTab == 'transactions'" fill-height class="pl-8">
 
             <v-col cols="12">
                 <v-toolbar flat>
